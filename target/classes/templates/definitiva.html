@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <meta charset="UTF-8">
+    <title>Editar Definitiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Texto negro */
+            margin: 0;
+            padding: 0;
+        }
+
+
+ 		.container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            position: relative; /* Para posicionar el botón de salir */
+            margin: 0 auto; /* Centrar horizontalmente */
+            max-width: 300px; /* Ancho máximo del contenedor */
+            margin-top: 50px; /* Espacio desde la parte superior */
+        }
+      .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000; /* Rojo */
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Quitar subrayado */        
+            outline: none; /* Quitar el contorno */
+        }
+        
+
+        .exit-button:hover {
+            background-color: #cc0000; /* Rojo más oscuro al pasar el mouse */
+            text-decoration: none; /* Quitar subrayado */
+        }
+
+        h1 {
+            color: #000; /* Texto negro */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #16a34a; /* Verde oscuro */
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #15803d; /* Verde medio */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+   <form id="logoutForm">
+    <button type="button" onclick="goBackk()" class="exit-button">Salir</button>
+</form>
+<script>
+    function goBackk() {
+        window.history.back();
+    }
+</script>
+    <h1>Agregar Definitiva</h1>
+    	<p>Nombre: <span th:text="${alumno.nombres}"></span></p>
+        <p>Apellido: <span th:text="${alumno.apellidos}"></span></p>
+        <p>Correo: <span th:text="${alumno.correo}"></span></p>
+    <form action="/actualizar-definitiva" method="post">
+        <input type="hidden" name="id" th:value="${alumno.id}" />
+        <label for="definitiva">Calificación Definitiva:</label>
+        <input type="number" step="0.01" id="definitiva" name="definitiva" th:value="${alumno.definitiva}" required />
+        <button type="submit">Guardar</button>
+    </form>
+    </div>
+</body>
+</html>

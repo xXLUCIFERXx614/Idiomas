@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <title>Seleccione su rol</title>
+    <!-- Enlace a Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Estilo personalizado para la página */
+        body {
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1s ease; /* Animación al cargar la página */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+            border-radius: 15px; /* Bordes redondeados */
+        }
+        .btn {
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        
+        a{
+            transition: all 0.3s ease;
+        }
+         a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .br
+        .branding {
+            font-size: 2.5rem; /* Reducir tamaño del título */
+            font-weight: bold;
+            color: #4d72b5; /* Azul */
+            margin-bottom: 0.5rem; /* Reducir espacio inferior */
+            line-height: 1; /* Eliminar interlineado */
+        }
+        .department {
+            font-size: 1.25rem; /* Reducir tamaño del subtítulo */
+            color: #6b7280; /* Gris */
+            margin-bottom: 1rem; /* Aumentar espacio inferior */
+        }
+        .description {
+            font-size: 1.2rem;
+            color: #6b7280; /* Gris */
+            margin-bottom: 1rem; /* Ajuste de margen inferior */
+        }
+        .footer {
+            margin-top: 2rem; /* Ajuste de margen superior */
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0; /* Gris claro */
+            color: #6b7280; /* Gris */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Contenedor 1: Información de la UTS -->
+        <div>
+            <img src="img/Logo.png" alt="Logo de la universidad" class="h-40 mx-auto mb-8"> <!-- Ajustar el tamaño del logo -->
+            <div class="branding">Unidades Tecnológicas de Santander</div>
+        </div>
+
+        <!-- Contenedor 2: Información del Departamento de Idiomas -->
+        <div>
+            <div class="department">Departamento de Idiomas</div>
+            <div class="description">¡Bienvenido! Por favor, dinos quién eres:</div>
+            <form action="/select-role" method="post">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <button type="submit" name="role" value="coordinador" class="btn bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:shadow-outline">Coordinador</button>
+                    <button type="submit" name="role" value="profesor" class="btn bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:shadow-outline">Profesor</button>
+                    <button type="submit" name="role" value="alumno" class="btn bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:shadow-outline">Alumno</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Contenedor 3: Invitación a registrarse -->
+        <div>
+            <div class="footer">
+                <div class="description">¿Desea registrarse en nuestros cursos?</div>
+                <a th:href="@{/registrar}" class="btn bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:shadow-outline">Registrarse</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Unidades Tecnológicas de Santander</p>
+            <p>Creado por: Andrey Hernadez - Karol Herreño</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Profesor</title>
+</head>
+<style>
+    /* Estilos para el fondo */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #000; /* Texto negro */
+        padding-top: 50px; /* Espacio para la barra de navegación */
+        margin-left: 3rem; /* Margen izquierdo */
+    }
+
+    /* Contenedor principal */
+    .container {
+        background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+        padding: 30px;
+        border-radius: 10px;
+        position: relative; /* Para posicionar el botón de salir */
+        margin: 0 auto; /* Centrar horizontalmente */
+        max-width: 400px; /* Ancho máximo del contenedor */
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    form div {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 10px; /* Aumenta el espacio entre los labels */
+        color: #000; /* Texto negro */
+    }
+
+    form input,
+    form select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Estilos para los botones */
+    .botones {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+  
+
+    button[type="submit"],
+    .btn-salir {
+        background-color: #16a34a; /* Verde oscuro */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px; /* Tamaño de la fuente */
+        text-align: center; /* Centrar el texto */
+        text-decoration: none; /* Quitar subrayado */
+        outline: none; /* Quitar el contorno */
+    }
+
+    button[type="submit"]:hover,
+    .btn-salir:hover {
+        background-color: #15803d; /* Verde medio */
+    }
+
+    .btn-salir {
+        background-color: #6b7280; /* Gris */
+    }
+
+    .btn-salir:hover {
+        background-color: #4b5563; /* Gris oscuro */
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2 th:text="${profesor.id == null} ? 'Crear Profesor' : 'Editar Profesor'">Crear Profesor</h2>
+        <form th:action="${profesor.id == null} ? @{/profesores/guardar} : @{/profesores/actualizar/{id}(id=${profesor.id})}" th:object="${profesor}" method="post">
+            <div>
+                <label for="nombreProf">Nombre:</label>
+                <input type="text" id="nombreProf" th:field="*{nombreProf}" placeholder="Nombre del profesor" required>
+            </div>
+            <div>
+                <label for="apellidoProf">Apellido:</label>
+                <input type="text" id="apellidoProf" th:field="*{apellidoProf}" placeholder="Apellido del profesor" required>
+            </div>
+            <div>
+                <label for="correoProf">Correo:</label>
+                <input type="email" id="correoProf" th:field="*{correoProf}" placeholder="Correo electrónico del profesor" required>
+            </div>
+            <div>
+                <label for="passwordProf">Contraseña:</label>
+                <input type="password" id="passwordProf" th:field="*{passwordProf}" placeholder="Contraseña del profesor" required>
+            </div>
+            <div class="botones">
+                <button type="submit">Guardar</button>
+                <a th:href="@{/profesores/lista}" class="btn-salir">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
