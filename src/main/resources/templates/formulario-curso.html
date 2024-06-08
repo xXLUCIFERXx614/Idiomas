@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="icon" type="image/png" href="img/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Curso</title>
+</head>
+<style>
+    /* Estilos para el fondo */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #000; /* Texto negro */
+        padding-top: 50px; /* Espacio para la barra de navegación */
+        margin-left: 3rem; /* Margen izquierdo */
+    }
+
+    /* Contenedor principal */
+    .container {
+        background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+        padding: 30px;
+        border-radius: 10px;
+        position: relative; /* Para posicionar el botón de salir */
+        margin: 0 auto; /* Centrar horizontalmente */
+        max-width: 400px; /* Ancho máximo del contenedor */
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    form div {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 10px; /* Aumenta el espacio entre los labels */
+        color: #000; /* Texto negro */
+    }
+
+    form input,
+    form select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Estilos para los botones */
+    .botones {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button[type="submit"],
+    .btn-salir {
+        background-color: #16a34a; /* Verde oscuro */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px; /* Tamaño de la fuente */
+        text-align: center; /* Centrar el texto */
+        text-decoration: none; /* Quitar subrayado */
+        outline: none; /* Quitar el contorno */
+    }
+
+    button[type="submit"]:hover,
+    .btn-salir:hover {
+        background-color: #15803d; /* Verde medio */
+    }
+
+    .btn-salir {
+        background-color: #6b7280; /* Gris */
+    }
+
+    .btn-salir:hover {
+        background-color: #4b5563; /* Gris oscuro */
+    }
+</style>
+<body>
+    <div class="container">
+        <h2 th:text="${curso.id == null} ? 'Crear Curso' : 'Editar Curso'">Crear Curso</h2>
+        <form th:action="${curso.id == null} ? @{/cursos/guardar} : @{/cursos/actualizar/{id}(id=${curso.id})}" th:object="${curso}" method="post">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" placeholder="Nombre del curso" required>
+            </div>
+            <div>
+                <label for="profesor">Profesor:</label>
+                <select id="profesor" th:field="*{profesor}" required>
+                    <option value="">Selecciona al Docente:</option>
+                    <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.nombreProf + ' ' + profesor.apellidoProf}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="estado">Estado:</label>
+                <select id="estado" th:field="*{estado}">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+            <div>
+                <label for="nivel">Nivel:</label>
+                <select id="nivel" th:field="*{nivel}">
+                    <option value="Nivel 1">Nivel 1</option>
+                    <option value="Nivel 2">Nivel 2</option>
+                    <option value="Nivel 3">Nivel 3</option>
+                </select>
+            </div>
+            <div>
+                <label for="fechaI">Fecha Inicio:</label>
+                <input type="date" id="fechaI" th:field="*{fechaI}" required>
+            </div>
+            <div>
+                <label for="fechaF">Fecha Fin:</label>
+                <input type="date" id="fechaF" th:field="*{fechaF}" required>
+            </div>
+            <div>
+                <label for="curso">Descripcion:</label>
+                <input type="text" id="curso" th:field="*{curso}" placeholder="Descripción del curso" required>
+            </div>
+            <div class="botones">
+                <button type="submit">Guardar</button>
+                <a th:href="@{/cursos/lista}" class="btn-salir">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

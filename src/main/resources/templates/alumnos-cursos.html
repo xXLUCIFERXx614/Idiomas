@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <meta charset="UTF-8">
+    <title>Alumnos por Curso</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Texto negro */
+            margin: 0;
+            padding: 0;
+        }
+
+       .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            position: relative; /* Para posicionar el botón de salir */
+            margin: 0 auto; /* Centrar horizontalmente */
+            max-width: 900px; /* Ancho máximo del contenedor */
+            margin-top: 50px; /* Espacio desde la parte superior */
+        }
+      .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000; /* Rojo */
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Quitar subrayado */        
+            outline: none; /* Quitar el contorno */
+        }
+        
+
+        .exit-button:hover {
+            background-color: #cc0000; /* Rojo más oscuro al pasar el mouse */
+            text-decoration: none; /* Quitar subrayado */
+        }
+
+        h1 {
+            color: #000; /* Texto negro */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #16a34a; /* Verde oscuro */
+            color: #fff;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5; /* Color de fondo gris aún más claro al pasar el mouse */
+        }
+
+        a {
+            background-color: #16a34a; /* Verde oscuro */
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #15803d; /* Verde medio */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+   <form id="logoutForm">
+    <button type="button" onclick="goBack()" class="exit-button">Salir</button>
+</form>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+    <h1>Alumnos del Curso <span th:text="${alumnos.get(0).curso.nombre}"></span></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Definitiva</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="alumno, iter : ${alumnos}">
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${alumno.nombres}"></td>
+                <td th:text="${alumno.apellidos}"></td>
+                <td th:text="${alumno.correo}"></td>
+                <td th:text="${alumno.definitiva}"></td>
+                <td th:text="${alumno.estado}"></td>
+                <td>
+                    <a th:href="@{/agregar-definitiva/{id}(id=${alumno.id})}">Editar Definitiva</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>

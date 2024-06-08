@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Profesores</title>
+</head>
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Texto negro */
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto; /* Centrar horizontalmente */
+            max-width: 800px; /* Ancho máximo del contenedor */
+        }
+
+        h2 {
+            color: #000; /* Texto negro */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #16a34a; /* Color de fondo de las cabeceras */
+            text-align: left;
+            color: #f5f5f5; /* Texto blanco */
+        }
+
+        tr:hover {
+            background-color: #f5f5f5; /* Color de fondo gris aún más claro al pasar el mouse */
+        }
+
+        a {
+            color: #fff; /* Texto blanco por defecto */
+            text-decoration: none; /* Quitar subrayado */
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #16a34a; /* Verde oscuro */
+            margin-right: 10px;
+        }
+
+        a.salir {
+            background-color: #dc3545; /* Rojo */
+        }
+        
+        a.salir:hover {
+         background-color: #dc3545; /* Rojo */
+        }
+
+        a:hover {
+            background-color: #15803d; /* Verde medio */
+        }
+
+        td:last-child a:last-child {
+            margin-right: 0;
+        }
+
+        td a {
+            margin-right: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Color de fondo gris claro en las filas pares */
+        }
+    </style>
+<body>
+    <div>
+        <h2>Lista de Profesores</h2>
+        <a th:href="@{/profesores/nuevo}">Nuevo Profesor</a>
+        <a th:href="@{/coordinador}" class="salir">Salir</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                    <th>Contraseña</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Itera sobre la lista de profesores y muestra cada uno en una fila de la tabla -->
+                <tr th:each="profesor, iter : ${profesores}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${profesor.nombreProf}"></td>
+                    <td th:text="${profesor.apellidoProf}"></td>
+                    <td th:text="${profesor.correoProf}"></td>
+                    <td th:text="${profesor.passwordProf}"></td>
+                    <td>
+                        <a th:href="@{/profesores/editar/{id}(id=${profesor.id})}">Editar</a>
+                        <a th:href="@{/profesores/eliminar/{id}(id=${profesor.id})}" class="salir">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

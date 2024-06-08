@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <title>Detalle del Alumno</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Cambiar a texto negro */
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #16a34a; /* Verde oscuro */
+            margin-bottom: 20px;
+        }
+        th {
+            color: #15803d; /* Verde medio */
+        }
+        .btn-primary {
+            background-color: #16a34a;  /* Color primario */
+            border-color: #16a34a; /* Color del borde */
+        }
+        .btn-primary:hover {
+            background-color: #15803d; /* Color primario al pasar el mouse */
+            border-color: #15803d; /* Color del borde al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        <h2>Detalle del Alumno</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nombre</th>
+                <td th:text="${alumno.nombres}"></td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td th:text="${alumno.apellidos}"></td>
+            </tr>
+            <tr>
+                <th>Cédula</th>
+                <td th:text="${alumno.cedula}"></td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td th:text="${alumno.correo}"></td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td th:text="${alumno.estado}"></td>
+            </tr>
+            <tr>
+                <th>Definitiva</th>
+                <td th:text="${alumno.definitiva}"></td>
+            </tr>
+            <tr>
+                <th>Nivel De Ingles</th>
+                <td th:text="${alumno.nivel}"></td>
+            </tr>
+            <tr>
+                <th>Programa</th>
+                <td th:text="${alumno.programa}"></td>
+            </tr>
+            <tr>
+                <th>Curso</th>
+                <td th:text="${alumno.curso.nombre}"></td>
+            </tr>
+           
+        </table>
+        <a th:href="@{/}" class="btn btn-primary">Salir</a>
+    </div>
+</body>
+</html>

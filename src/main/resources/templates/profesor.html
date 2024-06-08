@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <title>Detalles del Profesor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Texto negro */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            position: relative; /* Para posicionar el botón de salir */
+            margin: 0 auto; /* Centrar horizontalmente */
+            max-width: 800px; /* Ancho máximo del contenedor */
+            margin-top: 50px; /* Espacio desde la parte superior */
+        }
+
+        .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000; /* Rojo */
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Quitar subrayado */        
+            outline: none; /* Quitar el contorno */
+        }
+        
+
+        .exit-button:hover {
+            background-color: #cc0000; /* Rojo más oscuro al pasar el mouse */
+            text-decoration: none; /* Quitar subrayado */
+        }
+
+        h1, h2 {
+            color: #000; /* Texto negro */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            
+        }
+
+        th {
+            background-color: #16a34a; /* Verde oscuro */
+            text-align: left;
+            color:#FFFFFF; 
+        }
+
+        tr:hover {
+            background-color: #f5f5f5; /* Color de fondo gris aún más claro al pasar el mouse */
+        }
+
+        button {
+            background-color: #16a34a; /* Verde oscuro */
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+             
+        }
+
+        button:hover {
+            background-color: #15803d; /* Verde medio */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a  href="/" class="exit-button">Salir</a>
+        <h1>Detalles del Profesor</h1>
+        <p>Nombre: <span th:text="${profesor.nombreProf}"></span></p>
+        <p>Apellido: <span th:text="${profesor.apellidoProf}"></span></p>
+        <p>Correo: <span th:text="${profesor.correoProf}"></span></p>
+
+        <h2>Cursos Asociados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Curso</th>
+                    <th>Estado</th>
+                    <th>Nivel</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
+                    <th>Curso</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="curso : ${cursos}">
+                    <td th:text="${curso.nombre}"></td>
+                    <td th:text="${curso.estado}"></td>
+                    <td th:text="${curso.nivel}"></td>
+                    <td th:text="${curso.fechaI}"></td>
+                    <td th:text="${curso.fechaF}"></td>
+                    <td th:text="${curso.curso}"></td>
+                    <td>
+                        <form th:action="@{/cursos/alumnos/{cursoId}(cursoId=${curso.id})}" method="get">
+                            <button type="submit">Ver detalles</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

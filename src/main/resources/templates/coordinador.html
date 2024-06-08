@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" type="image/png" href="img/icon.png">
+    <title>Coordinador - Lista de Alumnos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+        /* Estilos para el fondo */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://www.uts.edu.co/sitio/wp-content/uploads/2022/02/postal1-entrada.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Cambiado a texto negro */
+            padding-top: 50px; /* Espacio para la barra de navegación */
+           	margin-left: 6rem; 
+        }
+
+        /* Estilo para el contenedor principal */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            position: relative; /* Para posicionar el botón de cerrar sesión */
+        }
+
+        /* Estilos para los botones */
+        .btn-primary {
+            background-color: #16a34a;  /* Color primario */
+            border-color: #15803d; /* Color del borde */
+            margin-right: 1rem; /* Espaciado entre los botones */
+        }
+
+        .btn-primary:hover {
+            background-color: #15803d; /* Color primario al pasar el mouse */
+            border-color: #15803d; /* Color del borde al pasar el mouse */
+            margin-right: 1rem; /* Espaciado entre los botones */
+        }
+
+        .btn-secondary {
+            background-color: rgb(255, 0, 0); /* Verde oscuro */
+            border-color: rgb(255, 0, 0); /* Verde oscuro */
+            box-shadow: 0 0 0 3px rgb(255, 0, 0); /* Sombra verde oscuro */
+        }
+
+        .btn-secondary:hover {
+            background-color: rgb(255, 0, 0); /* Verde medio */
+            border-color: rgb(255, 0, 0); /* Verde medio */
+            box-shadow: 0 0 0 3px rgb(255, 0, 0); /* Sombra verde medio */
+        }
+
+        /* Estilos para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #16a34a;  /* Color de fondo de las cabeceras */
+            color: #fff; /* Color de texto de las cabeceras */
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1); /* Color de fila par */
+        }
+
+        /* Estilos para el formulario de búsqueda */
+        #buscarAlumnoForm {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            position: relative; /* Cambiado a posición relativa */
+        }
+        /* Estilos para los campos de búsqueda */
+        #busquedaCedula {
+            margin-right: 10px;
+            flex-grow: 1; /* Ocupar el espacio restante */
+        }
+					/*side_bar*/
+					
+        /* Estilos para el botón de cerrar sesión */
+   .sidebar-footer {
+    position: absolute;
+    bottom: 20px; /* Ajusta según sea necesario */
+    width: 100%; /* Ocupa todo el ancho del sidebar */
+    text-align: left; /* Centra horizontalmente el contenido */
+}
+
+.logout-btn {
+    font-size: 50px; /* Ajusta el tamaño del icono según tus preferencias */
+    color: black; /* Establece el color del texto a negro */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+.logout-btn:hover {
+    color: red; /* Cambia el color del texto a rojo al pasar el mouse */
+}
+
+        /* Estilos para la barra lateral */
+       .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0; /* Alineado a la izquierda */
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar-content a {
+    margin-bottom: 10px; /* Margen inferior para separación vertical entre botones */
+}
+.sidebar-content {
+    padding: 16px;
+    color: black;
+    margin-top: 60px; /* Ajusta el margen superior según sea necesario para mover los botones hacia abajo */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea los botones a la izquierda */
+}
+.sidebar-content button {
+    margin-bottom: 10px; /* Margen inferior para separación vertical entre botones */
+}
+        /* Estilos para el botón de abrir la barra lateral */
+        .sidebar-toggle {
+            position: fixed;
+            z-index: 1;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            cursor: pointer;
+            color: rgb(0, 0, 0);
+        }
+
+        /* Estilos para el overlay cuando la barra lateral está abierta */
+        .overlay {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            background-color: rgba(0,0,0,0.5);
+            transition: 0.5s;
+        }
+
+        /* Estilos para el contenido principal cuando la barra lateral está abierta */
+        #contenido {
+            transition: margin-left .5s;
+        }
+
+        /* Estilos para el botón de cerrar la barra lateral */
+        .close-sidebar {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+            color: rgb(0, 0, 0);
+        }
+        
+    .sidebar-toggle {
+        position: fixed;
+        z-index: 1;
+        top: 20px;
+        left: 20px; /* Ajusta la posición izquierda según tus preferencias */
+    }
+    /*a del ordenar por nombre en la tabla*/
+    a {
+    color: white; /* Establece el color del texto del enlace a blanco */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    }
+    .form-control-small {
+        width: 205px; /* Ajusta el ancho según tus necesidades */
+        height: 30px; /* Ajusta la altura según tus necesidades */
+        font-size: 14px; /* Ajusta el tamaño de la fuente según tus necesidades */
+    }
+</style>
+    
+  
+</head>
+<body>
+    <!-- Barra lateral -->
+    <!-- Barra lateral -->
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+        <button class="btn btn-primary" onclick="window.location.href='/coordinador/alumnos/aprobados'">Mostrar Aprobados</button>
+        <button class="btn btn-primary" onclick="window.location.href='/coordinador/alumnos/no-aprobados'">Mostrar No Aprobados</button>
+
+        <form action="/coordinador/alumnos/por-nivel" method="get">
+            <label for="nivel">Filtrar por Nivel:</label>
+            <select name="nivel" id="nivel" class="form-control form-control-small">
+                <option value="Nivel 1">Nivel 1</option>
+                <option value="Nivel 2">Nivel 2</option>
+                <option value="Nivel 3">Nivel 3</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+        </form>
+
+        <!--  <form action="/coordinador/alumnos/por-curso" method="get">
+            <label for="curso">Filtrar por Curso:</label>
+            <select name="curso" id="curso" class="form-control form-control-small">
+                <option value="2020-1">2020-1</option>
+                <option value="2020-2">2020-2</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+        </form>-->
+
+        <a th:href="@{/cursos/lista}" class="btn btn-primary crear-curso-btn">Cursos</a>    
+        <a th:href="@{/profesores/lista}" class="btn btn-primary crear-curso-btn">Profesores</a>    
+
+        <div class="sidebar-footer">
+            <a th:href="@{/logout}" class="logout-btn">
+                <span class="material-symbols-outlined" style="font-size: 50px;">move_item</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Botón para abrir la barra lateral -->
+<div class="sidebar-toggle">
+    <span onclick="toggleSidebar()" class="material-symbols-outlined" style="font-size: 50px;">menu_open</span>
+</div>
+
+
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <h2>Lista de Alumnos</h2>
+        <!-- Botón para cerrar sesión -->
+       
+        <!-- Botón para buscar alumno por cédula -->
+        <form id="buscarAlumnoForm" th:action="@{/coordinador/alumnos/search}" method="get">
+            <input type="text" id="busquedaCedula" name="busquedaCedula" placeholder="Ingrese la cédula" autofocus th:value="${param.busquedaCedula}" style="width: 100%;">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <button type="button" id="cancelarBusqueda" class="btn btn-secondary">Cancelar</button>
+        </form>
+
+        <div id="contenido">
+            <table class="table table-striped" > 
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><a th:href="@{/coordinador/alumnos/ordenar-por-nombre}">Nombre</a></th>
+                        <th>Apellido</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Definitiva</th>
+                        <th>Nivel</th>
+                        <th>Programa</th>
+                        <th>Curso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="alumno, iter : ${alumnos}">
+                        <td th:text="${iter.index + 1}"></td>
+                        <td th:text="${alumno.nombres}"></td>
+                        <td th:text="${alumno.apellidos}"></td> 
+                        <td th:text="${alumno.cedula}"></td>
+                        <td th:text="${alumno.correo}"></td>
+                        <td th:text="${alumno.estado}"></td>
+                        <td th:text="${alumno.definitiva}"></td>
+                        <td th:text="${alumno.nivel}"></td>
+                        <td th:text="${alumno.programa}"></td>
+                        <td th:text="${alumno.curso != null ? alumno.curso.nombre : 'Curso no asignado'}">Nombre del Curso</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${alumnos == null or #lists.isEmpty(alumnos)}">
+            <p>No hay alumnos disponibles.</p>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" style="display: none;"></div>
+
+  <script>
+  
+ 
+  
+    function openSidebar() {
+        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("sidebar-toggle").style.marginLeft = "250px";
+        document.getElementById("contenido").style.marginLeft = "250px";
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeSidebar() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("sidebar-toggle").style.marginLeft = "0";
+        document.getElementById("contenido").style.marginLeft = "0";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    function toggleSidebar() {
+        var sidebarWidth = document.getElementById("sidebar").style.width;
+        if (sidebarWidth === "250px") {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    }
+    $(document).ready(function() {
+        $('#buscarAlumnoForm').on('submit', function() {
+            $('#contenido').addClass('sombreado');
+            $('#buscarAlumnoForm').addClass('sombreado-busqueda');
+            $('#overlay').show();
+        });
+
+        $('#cancelarBusqueda').on('click', function() {
+            $('#contenido').removeClass('sombreado');
+        $('#buscarAlumnoForm').removeClass('sombreado-busqueda');
+        $('#overlay').hide();
+        window.location.href = '/coordinador'; // Redirige de nuevo a la lista de alumnos
+    });
+
+    // Evita que se elimine el sombreado al hacer clic en la pantalla
+    $('#overlay').on('click', function(event) {
+        event.stopPropagation();
+    });
+});
+    
+</script>
+
+</body>
+</html>
